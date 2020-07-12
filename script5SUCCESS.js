@@ -76,6 +76,10 @@ function generate_one_ticket(){
     columns.splice(index_of_column,1);
     prepare_tmp_list_for_column();
   }
+
+  // At this point, pushingcolumn<n> has the numbers for a
+  // particular column in the ticket. Its in unsorted
+  // order.
   process2();
 }
 
@@ -170,11 +174,11 @@ function checkRows(){
     var ind = abclist.indexOf("a");
     abclist.splice(ind,1)
   }
-  else if (nums_b == 5){
+  if (nums_b == 5){
     var ind = abclist.indexOf("b");
     abclist.splice(ind,1)
   }
-  else if (nums_c == 5){
+  if (nums_c == 5){
     var ind = abclist.indexOf("c");
     abclist.splice(ind,1)
   }
@@ -317,7 +321,6 @@ function checkForList1(){
   abclist = ["a","b","c"]
   checkRows();
   for(k=0;k<pushingcol7.length;k++){
-    console.log(pushingcol7[k]);
       var ind= random(abclist.length)
       var row = abclist[ind];
       var concat = row+"7";
@@ -363,14 +366,11 @@ function checkForList1(){
   function checkForList9(){
   abclist = ["a","b","c"];
   checkRows();
-  //console.log(abclist);
+  console.log(abclist);
   for(k=0;k<pushingcol9.length;k++){
-    //console.log(pushingcol9);
       var ind= random(abclist.length);
       var row = abclist[ind];
-      //console.log(row);
       var concat = row+"9";
-      //console.log(concat);
       biglist.push([concat,pushingcol9[k]])
       // document.getElementById(concat).innerHTML = pushingcol9[k];
       var indexOfRow = abclist.indexOf(row);
@@ -389,8 +389,11 @@ function checkForList1(){
 
 
 function checkBigList(){
+  if(biglist.length != 15){
+    start();
+    checkBigList();
+  }
   for(var i =0; i<biglist.length; i++){
-    console.log(i);
     // if(i > 8){
       // if(biglist[i][1] >= 69 && biglist[i][1] <=60){
       //   recurse(biglist[i],'undefined7');
@@ -408,17 +411,14 @@ function checkBigList(){
     // }
     
   }
-  console.log("Final LiSt::")
-  console.log(biglist);
+
   implement();
   
 }
 
 function recurse(lis,undef){
   var condition = lis.includes(undef);
-  console.log(condition);
   if(condition == false){
-    console.log(biglist);
   }
   else{
     // console.log(biglist);
@@ -432,6 +432,7 @@ function implement(){
   for(var i =0; i < biglist.length; i++){
     smallList = biglist[i];
     document.getElementById(smallList[0]).innerHTML = smallList[1];
+    console.log(smallList[0]);
   }
 }
 
